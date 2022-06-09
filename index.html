@@ -8,6 +8,7 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
     <header>
@@ -30,25 +31,29 @@
                             <div class="row">
                                 <div class="col s4">
                                     <h5>Gramática</h5>
-                                    <p class="card-text">S ::= cAa <br>      
-                                        A ::= aCb | dBa | c <br>               
-                                        B ::= dAc | bSa <br>                   
-                                        C ::= aAb | &epsilon;                  
+                                    <p class="card-text">
+                                        S ::= aAc | aBb <br>      
+                                        A ::= Cc | &epsilon; <br>               
+                                        B ::= bSa | cCb <br>                   
+                                        C ::= bBa;                  
                                       </p>
                                 </div>
                                 <div class="col s4">
                                     <h5>First</h5>
-                                    <p class="card-text">S = {c}<br>
-                                        A = {a, d, c}<br>B = {d, b}<br>
-                                        C = {a, &epsilon;}
+                                    <p class="card-text">
+                                        S = {a}<br>
+                                        A = {&epsilon;, b}<br>
+                                        B = {b, c}<br>
+                                        C = {b}
                                     </p>
                                 </div>
                                 <div class="col s4">
                                     <h5>Follow</h5>
-                                    <p class="card-text">S = {$, a}<br>
-                                        A = {a, b, c}<br>
-                                        B = {a}<br>
-                                        C = {b}</p>
+                                    <p class="card-text">
+                                        S = {$, a}<br>
+                                        A = {c}<br>
+                                        B = {b, a}<br>
+                                        C = {b, c}</p>
                                 </div>
                             </div>
                         </div>
@@ -59,15 +64,15 @@
                             <div class="row">
                                 <div class="file-field input-field">
                                     <div class="">
-                                        <a class="waves-effect waves-light btn-small">Gerar</a>
-                                        <a class="waves-effect btn-small red accent-2">X</a>
+                                        <a class="waves-effect waves-light btn-small" onclick="generateSentence.automaticGenerator();">Gerar</a>
+                                        <a class="waves-effect btn-small red accent-2" onclick="generateSentence.clear();">X</a>
                                     </div>
                                     <div class="file-path-wrapper">
                                         <div class="col s9">
-                                            <input class="file-path validate" placeholder="Digite a sentença..." type="text">
+                                            <input id="setence" class="file-path validate" placeholder="Digite a sentença..." type="text">
                                         </div>
                                         <div class="col s1">
-                                            <a class="waves-effect waves-light btn">Analisar</a>
+                                            <a class="waves-effect waves-light btn" onclick="sintaticAnalyser.analyse();">Analisar</a>
                                         </div>
                                     </div>
                                 </div>
@@ -88,35 +93,35 @@
                                         <tbody>
                                           <tr class="S">
                                             <th scope="row">S</th>
-                                            <td></td>
-                                            <td></td>
-                                            <td>S➜cAa</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>S➜aAc</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
                                           </tr>
                                           <tr class="A">
                                             <th scope="row">A</th>
-                                            <td>A➜aCb</td>
+                                            <td>-</td>
+                                            <td>A➜Cc</td>
+                                            <td>A➜&epsilon;</td>
                                             <td></td>
-                                            <td>A➜c</td>
-                                            <td>A➜dBa</td>
-                                            <td></td>
+                                            <td>-</td>
                                           </tr>
                                           <tr class="B">
                                             <th scope="row">B</th>
-                                            <td></td>
+                                            <td>-</td>
                                             <td>B➜bSa</td>
-                                            <td></td>
-                                            <td>B➜dAc</td>
-                                            <td></td>
+                                            <td>B➜cCb</td>
+                                            <td>-</td>
+                                            <td>-</td>
                                           </tr>
                                           <tr class="C">
                                             <th scope="row">C</th>
-                                            <td>C➜aAb</td>
-                                            <td>C➜&epsilon;</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>-</td>
+                                            <td>C➜bBa</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
                                           </tr>
                                         </tbody>
                                     </table>
@@ -148,83 +153,11 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col s6 m6">
-                    <div class="card">
-                        <div class="card-content">
-                            <h5>Gerar Sentença</h5>
-                            <div class="row">
-                                <div class="file-field input-field">
-                                    <div class="">
-                                        <a class="waves-effect waves-light btn-small">Gerar</a>
-                                        <a class="waves-effect btn-small red">X</a>
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <div class="col s9">
-                                            <input class="file-path validate" placeholder="Digite a sentença..." type="text">
-                                        </div>
-                                        <div class="col s1">
-                                            <a class="waves-effect waves-light btn">Analisar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div style="margin-left: 10px; margin-right: 10px;">
-                                    <table id="tablePreview" class="responsive-table">
-                                        <thead>
-                                          <tr>
-                                            <th></th>
-                                            <th>a</th>
-                                            <th>b</th>
-                                            <th>c</th>
-                                            <th>d</th>
-                                            <th>$</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr class="S">
-                                            <th scope="row">S</th>
-                                            <td></td>
-                                            <td></td>
-                                            <td>S➜cAa</td>
-                                            <td></td>
-                                            <td></td>
-                                          </tr>
-                                          <tr class="A">
-                                            <th scope="row">A</th>
-                                            <td>A➜aCb</td>
-                                            <td></td>
-                                            <td>A➜c</td>
-                                            <td>A➜dBa</td>
-                                            <td></td>
-                                          </tr>
-                                          <tr class="B">
-                                            <th scope="row">B</th>
-                                            <td></td>
-                                            <td>B➜bSa</td>
-                                            <td></td>
-                                            <td>B➜dAc</td>
-                                            <td></td>
-                                          </tr>
-                                          <tr class="C">
-                                            <th scope="row">C</th>
-                                            <td>C➜aAb</td>
-                                            <td>C➜&epsilon;</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>       
     </main>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="js/table_object.js"></script>
+<script src="js/sintatic_analyser.js"></script>
+<script src="js/generate_by_table.js"></script>
 </html>
