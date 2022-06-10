@@ -1,7 +1,27 @@
+nav {
+    background-color: #26a69a;
+}
+
+main .container .row {
+    margin-top: 20px;
+}
+
 #tablePreview th {
-    text-align: centers;
+    text-align: center;
 }
 
 #tablePreview td {
     text-align: center;
+}
+
+#tableResult th {
+    text-align: center;
+}
+
+#tableResult td {
+    text-align: center;
+}
+
+.card-result {
+    max-height: 735px;
 }

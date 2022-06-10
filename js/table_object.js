@@ -4,3 +4,7 @@ const tableObject = {
     B: {b: 'bSa', c: 'cCb'},
     C: {b: 'bBa'}
 };
+
+function getProduction(rule, letter) {
+    return tableObject[rule][letter];
+}
