@@ -1,8 +1,8 @@
 const generateSentence = { 
     automaticGenerator: function(){
-        generateSentence.clear();
+        //generateSentence.clear();
         
-        let setenceElement = document.getElementById('setence');
+        let sentenceElement = document.getElementById('setence');
         let sentence = tableObject['S']['a'];
         let index = 0;
         while(true){
@@ -25,8 +25,8 @@ const generateSentence = {
             }
             index = index + 1;
         }
-        console.log(sentence);
-        setenceElement.value = sentence;
+
+        sentenceElement.value = sentence;
     },
     initTableGenerator: function(){
         let tds = document.getElementById('tablePreview').getElementsByTagName('td');

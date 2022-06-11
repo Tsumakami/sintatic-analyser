@@ -14,14 +14,22 @@ main .container .row {
     text-align: center;
 }
 
+#tableResult {
+    overflow: scroll;
+    overflow-x: hidden; 
+}
+
 #tableResult th {
     text-align: center;
 }
 
 #tableResult td {
-    text-align: center;
+    text-align: left;
 }
 
-.card-result {
-    max-height: 735px;
+.container-table {
+    margin-left: 10px; 
+    margin-right: 10px; 
+    overflow: overlay; 
+    max-height: 635px;
 }

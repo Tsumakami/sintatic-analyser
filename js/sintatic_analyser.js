@@ -43,27 +43,31 @@ const sintaticAnalyser = {
             let lastLetterOnStack = lastPositionTable.stack[lastPositionTable.stack.length - 1];
             let firstLetterOnInput = lastPositionTable.input[0];
 
-            if (lastPositionTable.stack.length > 0 || lastPositionTable.input > 0) {
-                if (!(lastLetterOnStack == lastLetterOnStack.toUpperCase())) break;
+            if (lastPositionTable.stack.length > 0 || lastPositionTable.input.length > 0) {
                 if(lastLetterOnStack != firstLetterOnInput) {
-                    if (tableObject[lastLetterOnStack][firstLetterOnInput]) {
+                    if (!(lastLetterOnStack == lastLetterOnStack.toUpperCase())) break;
+
+                    if (tableObject[lastLetterOnStack] !== undefined && 
+                        tableObject[lastLetterOnStack][firstLetterOnInput]) {
                         lastPositionTable.action = tableObject[lastLetterOnStack][firstLetterOnInput];
-                        let actionReverse = this.reverseString(action);
+                        let actionReverse = this.reverseString(lastPositionTable.action);
                         let input = lastPositionTable.input;
+                        let newStack = lastPositionTable.stack.slice(0, -1) + actionReverse;
                         
-                        let newStack = novaPilha = lastPositionTable.stack.slice(0, -1) + actionReverse;
                         if (lastPositionTable.action == "&epsilon;") {
                             newStack = lastPositionTable.stack.slice(0, -1);
                         }
+
                         tableParsing.push({
                             stack: newStack,
                             input: input,
                             action: ''
-                        });
+                        }); 
                     } else {
                         isRunning = false;
                     }
                 } else {
+
                     if(firstLetterOnInput == '$' && lastLetterOnStack == '$') break;
                     lastPositionTable.action = `Ler ${firstLetterOnInput}`;
                     let newStack = lastPositionTable.stack.slice(0, -1);
@@ -82,9 +86,9 @@ const sintaticAnalyser = {
         firstLetterOnInput = lastPositionTable.input[0];
 
         if(lastLetterOnStack == '$' && firstLetterOnInput == '$'){
-            lastPositionTable.action = `Aceito em ${tableParsing.length} iterações.`;
+            lastPositionTable.action = `<strong>Aceito em ${tableParsing.length} iterações.</strong>`;
         } else {
-            lastPositionTable.action = `Erro em ${tableParsing.length} iterações.`;
+            lastPositionTable.action = `<strong>Erro em ${tableParsing.length} iterações.</strong>`;
         }
 
         return tableParsing;
@@ -101,7 +105,9 @@ const sintaticAnalyser = {
             let tdInput = document.createElement('td');
             let tdAction = document.createElement('td');
 
-            if(lastLetterOnStack == lastLetterOnStack.toUpperCase() && 1 < tableParsing.length - 1) {
+            if(lastLetterOnStack == lastLetterOnStack.toUpperCase() && 
+            1 < tableParsing.length - 1 &&
+            lastLetterOnStack != '$') {
                 tdStack.innerHTML = row.stack;
                 tdInput.innerHTML = row.input;
                 tdAction.innerHTML = `${lastLetterOnStack} ➜ ${row.action}`;
@@ -117,6 +123,8 @@ const sintaticAnalyser = {
             
             let tableBody = document.getElementById('parser');
             tableBody.appendChild(tr);
+            
+            this.scrollTable();
         });
     },
     cleanTableResult: function(){
@@ -129,6 +137,11 @@ const sintaticAnalyser = {
         var joinArray = reverseArray.join("");
 
         return joinArray;
+    },
+    scrollTable: function() {
+        let element = document.getElementsByClassName('container-table');
+        element[0].scrollTop = element[0].scrollHeight;
+
     }
 }
 
